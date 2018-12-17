@@ -75,9 +75,9 @@ user.can('blogpost.edit')
     * <a href="#aclgroup-alias"><code>aclGroup<b>#alias()</b></code></a>
     * <a href="#aclgroup-query"><code>aclGroup<b>#query()</b></code></a>
     * <a href="#aclgroup-allow"><code>aclGroup<b>#allow()</b></code></a>
-    * <a href="#aclgroup-disallow"><code>aclGroup<b>#disallow()</b></code></a>
-    * <a href="#aclgroup-forget"><code>aclGroup<b>#forget()</b></code></a>
-    * <a href="#aclgroup-inherit"><code>aclGroup<b>#inherit()</b></code></a>
+    * <code>aclGroup<b>#disallow()</b></code>
+    * <code>aclGroup<b>#forget()</b></code>
+    * <code>aclGroup<b>#inherit()</b></code>
 
 ---
 <a name="aclmanager-constructor"></a>
