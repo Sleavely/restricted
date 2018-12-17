@@ -89,9 +89,7 @@ class aclGroup {
 
   toJSON()
   {
-    return this.permissions.list().reduce((output, scope) => {
-      output[scope] = this.permissions.get(scope)
-    }, {})
+    return this.permissions.toJSON()
   }
 }
 
