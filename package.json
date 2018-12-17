@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha"
   },
-  "keywords": [],
+  "keywords": ["acl", "access control", "permissions"],
   "author": "Joakim Hedlund",
   "license": "MIT",
   "dependencies": {
