@@ -1,4 +1,6 @@
-# restricted
+# restricted [![Build Status](https://travis-ci.org/Sleavely/restricted.svg?branch=master)](https://travis-ci.org/Sleavely/restricted)
+
+[Github](https://github.com/Sleavely/restricted) | [NPM](https://www.npmjs.com/package/restricted) | [Travis](https://travis-ci.org/Sleavely/restricted)
 
 _restricted_ gives you Access Control Lists (ACL) on user groups, with a declarative syntax.
 
