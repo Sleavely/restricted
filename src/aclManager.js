@@ -5,6 +5,7 @@ class aclManager {
 
   constructor()
   {
+    //TODO: when launching, you should define whether you want to be permissive or exclusive in your permissions (i.e. Allow vs Deny as default)
     this.groups = {}
   }
 
