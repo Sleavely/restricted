@@ -1,12 +1,21 @@
 'use strict'
 
+const PermissionScopeManager = require('./permissionScopeManager.js')
+
 class aclGroup {
 
   constructor(name, aclManager)
   {
     this.name = name
     this.aclManager = aclManager
-    this.permissions = []
+    this.permissions = new PermissionScopeManager
+  }
+
+  default(allowed)
+  {
+    this.permissions.default(allowed)
+
+    return this
   }
 
   alias(aliases)
@@ -25,14 +34,8 @@ class aclGroup {
     actions = [].concat(actions)
 
     return actions.every(action => {
-      if(this.permissions.includes(action)) return true
-
-      // If there is no direct match, lets look for more generic namespaces
-      const hasUpperLevelPermission = this.permissions.some(permission => {
-        return (permission.length > 0 && action.indexOf(permission) === 0)
-      })
-
-      return hasUpperLevelPermission
+      //TODO: what happens in the case of true+undefined+true ?
+      return this.permissions.evaluate(action)
     })
   }
 
@@ -41,16 +44,7 @@ class aclGroup {
     actions = [].concat(actions)
 
     actions.forEach(action => {
-      // Lets allow more generic namespaces to take precedent
-      const alreadyExists = this.permissions.find(permission => {
-        return permission.length > 0 && action.indexOf(permission) === 0
-      })
-      // .. but add if we cant find one
-      if(!alreadyExists)
-      {
-        this.permissions.push(action)
-        // TODO: check if this new action has made other, more specific ones redundant?
-      }
+      this.permissions.set(action, true)
     })
 
     return this
@@ -61,19 +55,19 @@ class aclGroup {
     actions = [].concat(actions)
 
     actions.forEach(action => {
-      // The downside of how allowing multi-layered permissions is that
-      // we cant disallow "user.edit" if you have full access to "user".
-      // However, we can do an inverted version of how we add, so if you
-      // try to disallow "user" it will revoke permissions for "user.edit".
 
-      this.permissions.forEach((permission, i) => {
-        if(action.length > 0 && permission.indexOf(action) === 0)
-        {
-          //TODO: If removing multiple, the index might be off by one
-          // after the forst has been spliced
-          this.permissions.splice(i,1)
-        }
-      })
+      this.permissions.set(action, false)
+    })
+
+    return this
+  }
+
+  forget(actions)
+  {
+    actions = [].concat(actions)
+
+    actions.forEach(action => {
+      this.permissions.remove(action)
     })
 
     return this
@@ -84,10 +78,20 @@ class aclGroup {
     groups = [].concat(groups)
 
     groups.forEach(groupName => {
-      this.allow(this.aclManager.group(groupName).permissions)
+      const groupPermissions = this.aclManager.group(groupName).permissions
+      groupPermissions.list().forEach(scope => {
+        groupPermissions.get(scope) ? this.allow(scope) : this.disallow(scope)
+      })
     })
 
     return this
+  }
+
+  toJSON()
+  {
+    return this.permissions.list().reduce((output, scope) => {
+      output[scope] = this.permissions.get(scope)
+    }, {})
   }
 }
 
