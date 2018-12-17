@@ -5,7 +5,6 @@ class aclManager {
 
   constructor()
   {
-    //TODO: when launching, you should define whether you want to be permissive or exclusive in your permissions (i.e. Allow vs Deny as default)
     this.groups = {}
   }
 
@@ -22,13 +21,29 @@ class aclManager {
     return this.groups[name]
   }
 
-  can(actions)
+  can(actions, groups)
+  {
+    return this.canAll(actions, groups)
+  }
+  canAll(actions, groups)
   {
     actions = [].concat(actions)
+    groups = [].concat(groups)
 
     return actions.every(action => {
       // Allowed if at least one of the groups allows the action to take place
-      return this.groups.some(group => group.query(action))
+      return groups.some(group => this.group(group).query(action))
+    })
+  }
+
+  canSome(actions, groups)
+  {
+    actions = [].concat(actions)
+    groups = [].concat(groups)
+
+    return actions.some(action => {
+      // Allowed if at least one of the groups allows the action to take place
+      return groups.some(group => this.group(group).query(action))
     })
   }
 }
