@@ -123,7 +123,7 @@ describe('PermissionScopeManager', function(){
   describe('toJSON()', function () {
     it('serializes a list of defined scopes when stringified', function() {
       this.scopes.set('user.edit', true)
-      expect(JSON.stringify(this.scopes)).to.equal('["user.edit"]')
+      expect(JSON.stringify(this.scopes)).to.equal('{"user.edit":true}')
     })
   })
 
