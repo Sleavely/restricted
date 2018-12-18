@@ -4,6 +4,7 @@
   "description": "",
   "main": "./src/index.js",
   "scripts": {
+    "postversion": "git push $(git config --local branch.$(git symbolic-ref --short HEAD).remote) $(git describe --abbrev=0)",
     "test": "mocha"
   },
   "keywords": ["acl", "access control", "permissions"],
