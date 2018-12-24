@@ -20,9 +20,12 @@ class aclGroup {
 
   alias(aliases)
   {
+    if(!this.aclManager) throw new Error('You cant create aliases without an aclManager attached to the group')
+
     aliases = [].concat(aliases)
 
     aliases.forEach(alias => {
+      if (this.aclManager.groups[alias]) throw new Error(`The alias ${JSON.stringify(alias)} already exists`)
       this.aclManager.groups[alias] = this
     })
 

@@ -58,7 +58,7 @@ class PermissionScopeManager {
   }
 
   toJSON() {
-    return this.list().reduce((output, scope) => {
+    return this.list().sort().reduce((output, scope) => {
       output[scope] = this.get(scope)
       return output
     }, {})
