@@ -1,13 +1,52 @@
-# restricted [![Build Status](https://travis-ci.org/Sleavely/restricted.svg?branch=master)](https://travis-ci.org/Sleavely/restricted)
+# ⛔ restricted [![Build Status](https://travis-ci.org/Sleavely/restricted.svg?branch=master)](https://travis-ci.org/Sleavely/restricted)
 
 [Github](https://github.com/Sleavely/restricted) | [NPM](https://www.npmjs.com/package/restricted) | [Travis](https://travis-ci.org/Sleavely/restricted)
 
 _restricted_ gives you scoped Access Control Lists (ACL) for user groups.
 
-
+* [About](#about)
+* [Install](#install)
 * [Quick Start](#quick-start)
 * [API](#api)
 * [License](#license)
+
+---
+
+## About
+
+> What makes _restricted_ different?
+
+Many ACL modules on NPM are tied to frameworks[[1]](https://www.npmjs.com/package/express-acl)[[2]](https://www.npmjs.com/package/hapi-authorization) or conventions that force you to think in CRUDdy terms[[3]](https://www.npmjs.com/package/accesscontrol). We're trying a different approach.
+
+_restricted_ lets you define cascading permissions, we call them _scopes_. All scopes are automatically divided into  `.` For example, imagine the following set of possible actions for a guest:
+
+```
+USERS
+✅ user.register
+✅ user.view
+⛔ user.view.email
+✅ user.view.username
+✅ user.view.photo
+```
+
+With _restricted_, you can set scopes on both broad and granular permissions for a group.
+
+```js
+acl.group('users')
+     .allow('user')
+     .allow('user.view.email.own') // Like in CSS, specificity matters
+  .disallow('user.view.email')
+```
+
+Depending on which library you compare with, the potential downside to be aware of is that it expects you to define your groups before you try to test permission scopes aganst them.
+
+---
+
+## Install
+
+```sh
+npm install restricted
+```
 
 ---
 
@@ -99,12 +138,9 @@ Returns [`aclGroup`](#aclgroup-constructor)
 
 ---
 <a name="aclmanager-can"></a>
-#### aclManager#can(scopes, groups)
+#### aclManager#can()
 
 Alias for [canAll()](#aclmanager-canall)
-
-  * `scopes` - a single scope as a string, or an array of several scopes
-  * `groups` - a single group name as a string, or an array
 
 Returns `boolean`
 
