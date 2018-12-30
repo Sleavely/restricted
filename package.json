@@ -5,7 +5,7 @@
   "repository": "Sleavely/restricted",
   "main": "./src/index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "eslint ./ && mocha"
   },
   "keywords": [
     "acl",
@@ -21,6 +21,12 @@
   },
   "devDependencies": {
     "chai": "^4.2.0",
+    "eslint": "^5.11.1",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^8.0.0",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0",
     "mocha": "^5.2.0"
   }
 }
