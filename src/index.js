@@ -1,10 +1,10 @@
 'use strict'
-const aclManager = require('./aclManager')
-const aclGroup = require('./aclGroup')
-const permissionScopeManager = require('./permissionScopeManager')
+const AclManager = require('./aclManager')
+const AclGroup = require('./aclGroup')
+const PermissionScopeManager = require('./permissionScopeManager')
 
 module.exports = {
-  aclManager,
-  aclGroup,
-  permissionScopeManager,
+  AclManager: AclManager,
+  AclGroup,
+  PermissionScopeManager,
 }

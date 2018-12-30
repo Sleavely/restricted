@@ -2,25 +2,21 @@
 
 const PermissionScopeManager = require('./permissionScopeManager.js')
 
-class aclGroup {
-
-  constructor(name, aclManager)
-  {
+class AclGroup {
+  constructor (name, aclManager) {
     this.name = name
     this.aclManager = aclManager
-    this.permissions = new PermissionScopeManager
+    this.permissions = new PermissionScopeManager()
   }
 
-  default(allowed)
-  {
+  default (allowed) {
     this.permissions.default(allowed)
 
     return this
   }
 
-  alias(aliases)
-  {
-    if(!this.aclManager) throw new Error('You cant create aliases without an aclManager attached to the group')
+  alias (aliases) {
+    if (!this.aclManager) throw new Error('You cant create aliases without an aclManager attached to the group')
 
     aliases = [].concat(aliases)
 
@@ -32,18 +28,16 @@ class aclGroup {
     return this
   }
 
-  query(actions)
-  {
+  query (actions) {
     actions = [].concat(actions)
 
     return actions.every(action => {
-      //TODO: what happens in the case of true+undefined+true ?
+      // TODO: what happens in the case of true+undefined+true ?
       return this.permissions.evaluate(action)
     })
   }
 
-  allow(actions)
-  {
+  allow (actions) {
     actions = [].concat(actions)
 
     actions.forEach(action => {
@@ -53,20 +47,17 @@ class aclGroup {
     return this
   }
 
-  disallow(actions)
-  {
+  disallow (actions) {
     actions = [].concat(actions)
 
     actions.forEach(action => {
-
       this.permissions.set(action, false)
     })
 
     return this
   }
 
-  forget(actions)
-  {
+  forget (actions) {
     actions = [].concat(actions)
 
     actions.forEach(action => {
@@ -76,8 +67,7 @@ class aclGroup {
     return this
   }
 
-  inherit(groups)
-  {
+  inherit (groups) {
     groups = [].concat(groups)
 
     groups.forEach(groupName => {
@@ -90,10 +80,9 @@ class aclGroup {
     return this
   }
 
-  toJSON()
-  {
+  toJSON () {
     return this.permissions.toJSON()
   }
 }
 
-module.exports = aclGroup
+module.exports = AclGroup

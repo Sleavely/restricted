@@ -1,32 +1,26 @@
 'use strict'
-const aclGroup = require('./aclGroup.js')
+const AclGroup = require('./aclGroup.js')
 
-class aclManager {
-
-  constructor()
-  {
+class AclManager {
+  constructor () {
     this.groups = {}
   }
 
-  originalGroups()
-  {
+  originalGroups () {
     return [...(new Set(Object.values(this.groups)))]
   }
 
-  group(name)
-  {
-    if(!this.groups[name]) {
-      this.groups[name] = new aclGroup(name, this)
+  group (name) {
+    if (!this.groups[name]) {
+      this.groups[name] = new AclGroup(name, this)
     }
     return this.groups[name]
   }
 
-  can(actions, groups)
-  {
+  can (actions, groups) {
     return this.canAll(actions, groups)
   }
-  canAll(actions, groups)
-  {
+  canAll (actions, groups) {
     actions = [].concat(actions)
     groups = [].concat(groups)
 
@@ -36,8 +30,7 @@ class aclManager {
     })
   }
 
-  canSome(actions, groups)
-  {
+  canSome (actions, groups) {
     actions = [].concat(actions)
     groups = [].concat(groups)
 
@@ -48,4 +41,4 @@ class aclManager {
   }
 }
 
-module.exports = aclManager
+module.exports = AclManager

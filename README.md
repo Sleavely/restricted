@@ -52,12 +52,12 @@ npm install restricted
 
 ## Quick Start
 
-Our recommended implementation strategy is to initialize an aclManager and expose it as a module in your project, letting you interact with the same instance regardless of where in your codebase you are.
+Our recommended implementation strategy is to initialize an AclManager and expose it as a module in your project, letting you interact with the same instance regardless of where in your codebase you are.
 
 ```js
-const { aclManager } = require('restricted')
+const { AclManager } = require('restricted')
 
-const acl = new aclManager
+const acl = new AclManager
 
 // Non-existent groups are created on the fly
 acl.group('guest')
@@ -103,42 +103,42 @@ user.can('blogpost.edit')
 
 ## API
 
-  * <a href="#aclmanager-constructor"><code>new <b>aclManager</b></code></a>
-    * <a href="#aclmanager-group"><code>aclManager<b>#group()</b></code></a>
-    * <a href="#aclmanager-can"><code>aclManager<b>#can()</b></code></a>
-    * <a href="#aclmanager-canall"><code>aclManager<b>#canAll()</b></code></a>
-    * <a href="#aclmanager-cansome"><code>aclManager<b>#canSome()</b></code></a>
+  * <a href="#aclmanager-constructor"><code>new <b>AclManager</b></code></a>
+    * <a href="#aclmanager-group"><code>AclManager<b>#group()</b></code></a>
+    * <a href="#aclmanager-can"><code>AclManager<b>#can()</b></code></a>
+    * <a href="#aclmanager-canall"><code>AclManager<b>#canAll()</b></code></a>
+    * <a href="#aclmanager-cansome"><code>AclManager<b>#canSome()</b></code></a>
 
-  * <a href="#aclgroup-constructor"><code><b>aclGroup</b></code></a>
-    * <a href="#aclgroup-default"><code>aclGroup<b>#default()</b></code></a>
-    * <a href="#aclgroup-alias"><code>aclGroup<b>#alias()</b></code></a>
-    * <a href="#aclgroup-query"><code>aclGroup<b>#query()</b></code></a>
-    * <a href="#aclgroup-allow"><code>aclGroup<b>#allow()</b></code></a>
-    * <code>aclGroup<b>#disallow()</b></code>
-    * <code>aclGroup<b>#forget()</b></code>
-    * <code>aclGroup<b>#inherit()</b></code>
+  * <a href="#aclgroup-constructor"><code><b>AclGroup</b></code></a>
+    * <a href="#aclgroup-default"><code>AclGroup<b>#default()</b></code></a>
+    * <a href="#aclgroup-alias"><code>AclGroup<b>#alias()</b></code></a>
+    * <a href="#aclgroup-query"><code>AclGroup<b>#query()</b></code></a>
+    * <a href="#aclgroup-allow"><code>AclGroup<b>#allow()</b></code></a>
+    * <code>AclGroup<b>#disallow()</b></code>
+    * <code>AclGroup<b>#forget()</b></code>
+    * <code>AclGroup<b>#inherit()</b></code>
 
 ---
 <a name="aclmanager-constructor"></a>
-### new aclManager()
+### new AclManager()
 
 The main class that keeps track of your defined groups, and lets you evaluate against them.
 
 ```js
-const acl = new aclManager
+const acl = new AclManager
 ```
 
 ---
 <a name="aclmanager-group"></a>
-#### aclManager#group(name)
+#### AclManager#group(name)
 
 Find an ACL group by name or alias. Creates it if it does not exist.
 
-Returns [`aclGroup`](#aclgroup-constructor)
+Returns [`AclGroup`](#aclgroup-constructor)
 
 ---
 <a name="aclmanager-can"></a>
-#### aclManager#can()
+#### AclManager#can()
 
 Alias for [canAll()](#aclmanager-canall)
 
@@ -146,7 +146,7 @@ Returns `boolean`
 
 ---
 <a name="aclmanager-canall"></a>
-#### aclManager#canAll(scopes, groups)
+#### AclManager#canAll(scopes, groups)
 
 Evaluate whether the combination of groups can access all of the scopes.
 
@@ -157,7 +157,7 @@ Returns `boolean`
 
 ---
 <a name="aclmanager-cansome"></a>
-#### aclManager#canSome(scopes, groups)
+#### AclManager#canSome(scopes, groups)
 
 Evaluate whether any of the groups is allowed at least one of the scopes.
 
@@ -168,41 +168,41 @@ Returns `boolean`
 
 ---
 <a name="aclmanager-originalgroups"></a>
-#### aclManager#originalGroups()
+#### AclManager#originalGroups()
 
-Retrieve a list of unique (excluding aliases) [`aclGroup`](#aclgroup-constructor)s that have been defined.
+Retrieve a list of unique (excluding aliases) [`AclGroup`](#aclgroup-constructor)s that have been defined.
 
-Returns `array` of [`aclGroup`](#aclgroup-constructor)
+Returns `array` of [`AclGroup`](#aclgroup-constructor)
 
 ---
 <a name="aclgroup-constructor"></a>
-### aclGroup
+### AclGroup
 
-ACL groups are automatically initialized by the manager when you call [`aclManager#group()`](#aclmanager-group), so normally you wouldn't deal with the constructor itself.
+ACL groups are automatically initialized by the manager when you call [`AclManager#group()`](#aclmanager-group), so normally you wouldn't deal with the constructor itself.
 
-However, if you're into hacking, the call signature is `new aclGroup(name, aclManager)`, where `aclManager` is the reference to the parent class.
+However, if you're into hacking, the call signature is `new AclGroup(name, AclManager)`, where `AclManager` is the reference to the parent class.
 
 ---
 <a name="aclgroup-default"></a>
-#### aclGroup#default(allowed)
+#### AclGroup#default(allowed)
 
   * `allowed` - the fallback state for this group. Can be one of `true`, `false`, `undefined` (default)
 
-Returns [`aclGroup`](#aclgroup-constructor)
+Returns [`AclGroup`](#aclgroup-constructor)
 
 ---
 <a name="aclgroup-alias"></a>
-#### aclGroup#alias(aliases)
+#### AclGroup#alias(aliases)
 
-Register a nickname for the ACL group in the [`aclManager`](#aclmanager-constructor)
+Register a nickname for the ACL group in the [`AclManager`](#aclmanager-constructor)
 
   * `aliases` - a single group name as a string, or an array
 
-Returns [`aclGroup`](#aclgroup-constructor)
+Returns [`AclGroup`](#aclgroup-constructor)
 
 ---
 <a name="aclgroup-query"></a>
-#### aclGroup#query(scopes)
+#### AclGroup#query(scopes)
 
 Evaluate whether the group has access to the scope(s).
 
@@ -212,38 +212,38 @@ Returns `boolean`
 
 ---
 <a name="aclgroup-allow"></a>
-#### aclGroup#allow(scopes)
+#### AclGroup#allow(scopes)
 
 Define scope(s) that the group can access.
 
   * `scopes` - a single permission scope as a string, or an array of multiple scopes
 
-Returns [`aclGroup`](#aclgroup-constructor)
+Returns [`AclGroup`](#aclgroup-constructor)
 
 ```js
-aclManager.group('logged-in')
+AclManager.group('logged-in')
   .allow('profile.edit')
   .allow(['user.logout', 'comment'])
 
-aclManager.can('profile.edit.photo', 'user') // true
+AclManager.can('profile.edit.photo', 'user') // true
 ```
 
 ---
 <a name="aclgroup-disallow"></a>
-#### aclGroup#disallow(scopes)
+#### AclGroup#disallow(scopes)
 
 Define scope(s) that the group is not allowed to access.
 
   * `scopes` - a single permission scope as a string, or an array of multiple scopes
 
-Returns [`aclGroup`](#aclgroup-constructor)
+Returns [`AclGroup`](#aclgroup-constructor)
 
 ```js
-aclManager.group('guest')
+AclManager.group('guest')
      .allow('comment.own')
   .disallow('comment.own.delete')
 
-aclManager.can('comment.own.delete', 'guest') // false
+AclManager.can('comment.own.delete', 'guest') // false
 ```
 
 ---
