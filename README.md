@@ -1,6 +1,6 @@
-# ⛔ restricted [![Build Status](https://travis-ci.org/Sleavely/restricted.svg?branch=master)](https://travis-ci.org/Sleavely/restricted)
+# ⛔ restricted
 
-[Github](https://github.com/Sleavely/restricted) | [NPM](https://www.npmjs.com/package/restricted) | [Travis](https://travis-ci.org/Sleavely/restricted)
+[ ![npm version](https://img.shields.io/npm/v/restricted.svg?style=flat) ](https://npmjs.org/package/restricted "View this project on npm") [ ![CircleCI](https://img.shields.io/travis/Sleavely/restricted) ](https://travis-ci.org/Sleavely/restricted) [ ![Issues](https://img.shields.io/github/issues/Sleavely/restricted.svg) ](https://github.com/Sleavely/restricted/issues)
 
 _restricted_ gives you scoped Access Control Lists (ACL) for user groups.
 
