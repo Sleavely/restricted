@@ -2,7 +2,6 @@
   "name": "restricted",
   "version": "1.0.0-rc2",
   "description": "Cascading Access Control Lists (ACL) for user groups.",
-  "repository": "Sleavely/restricted",
   "main": "./src/index.js",
   "scripts": {
     "test": "eslint ./ && mocha"
@@ -13,6 +12,8 @@
     "permissions"
   ],
   "author": "Joakim Hedlund <contact@joakimhedlund.com>",
+  "homepage": "https://github.com/Sleavely/restricted",
+  "repository": "github:Sleavely/restricted",
   "license": "MIT",
   "dependencies": {
     "lodash.get": "^4.4.2",
