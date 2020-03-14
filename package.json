@@ -1,6 +1,6 @@
 {
   "name": "restricted",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Cascading Access Control Lists (ACL) for user groups.",
   "main": "./src/index.js",
   "scripts": {
